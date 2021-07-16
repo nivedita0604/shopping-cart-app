@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Filter from '../components/Filter';
 import categories from '../database/categories.json';
 import productslist from '../database/products.json';
-
+// to do --> add filtering functionality & strcture components
 const Category = () => {
   const { id } = useParams();
-  // eslint-disable-next-line no-console
-  console.log('id', id);
 
   const category = categories.find(cate => {
     return cate.id === id;
@@ -21,6 +20,13 @@ const Category = () => {
   return (
     <div>
       <div>
+        <div>
+          <h6>Filters</h6>
+          <Filter id="delivery" name="delivery" label="Delivery" />
+          <Filter id="inStock" name="inStock" label="In Stock" />
+          <Filter id="pricecheap" name="pricecheap" label="Price below 100$" />
+          <Filter id="price" name="price" label="Price above 100$" />
+        </div>
         <h3>{category.name}</h3>
         <div>
           {products.map(
