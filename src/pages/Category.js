@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
+import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Filter from '../components/Filter';
+import Products from '../components/Products';
+import { useFilter } from '../utility/useFilter';
 import categories from '../database/categories.json';
 import productslist from '../database/products.json';
-// to do --> add filtering functionality & strcture components
+
 const Category = () => {
   const { id } = useParams();
 
@@ -16,58 +20,54 @@ const Category = () => {
       return prod.categoryId === id;
     })
   );
+  const categoryTilte = category.name;
+  const [filter, dispatchfilter] = useFilter();
+  const handlefilter = value => {
+    // calling dispatch for filters
+    dispatchfilter(
+      { filterType: 'DELIVERY', filterAction: value },
+      { filterType: 'INSTOCK', filterAction: value },
+      { filterType: 'PRICEHIGH', filterAction: value },
+      { filterType: 'PRICELOW', filterAction: value }
+    );
+
+    // updating products state
+  };
+  const onCheckClick = () => {};
 
   return (
     <div>
       <div>
         <div>
           <h6>Filters</h6>
-          <Filter id="delivery" name="delivery" label="Delivery" />
-          <Filter id="inStock" name="inStock" label="In Stock" />
-          <Filter id="pricecheap" name="pricecheap" label="Price below 100$" />
-          <Filter id="price" name="price" label="Price above 100$" />
+          <Filter
+            id="delivery"
+            name="delivery"
+            label="Delivery"
+            onChange={onCheckClick}
+          />
+          <Filter
+            id="inStock"
+            name="inStock"
+            label="In Stock"
+            onChange={onCheckClick}
+          />
+          <Filter
+            id="pricecheap"
+            name="pricecheap"
+            label="Price below 100$"
+            onChange={onCheckClick}
+          />
+          <Filter
+            id="pricehigh"
+            name="pricehigh"
+            label="Price above 100$"
+            onChange={onCheckClick}
+          />
         </div>
-        <h3>{category.name}</h3>
-        <div>
-          {products.map(
-            ({
-              currency,
-              delivery,
-              inStock,
-              name,
-              price,
-              thumbnail,
-              ...restOfProduct
-            }) => {
-              return (
-                <div key={restOfProduct.id}>
-                  <img src={thumbnail} alt={name} width={50} />
-                  <div>{name}</div>
-                  <div>
-                    {currency} {price}
-                  </div>
-                  <div>
-                    {delivery ? (
-                      <div>Delivery available</div>
-                    ) : (
-                      <div>Delivery not available</div>
-                    )}
-                  </div>
-                  <div>
-                    {inStock ? (
-                      <div style={{ color: 'green' }}>In Stock</div>
-                    ) : (
-                      <div style={{ color: 'red' }}>Out of Stock</div>
-                    )}
-                  </div>
-                  <button type="button" disabled={!inStock}>
-                    Add to cart
-                  </button>
-                </div>
-              );
-            }
-          )}
-        </div>
+      </div>
+      <div>
+        <Products />
       </div>
     </div>
   );
