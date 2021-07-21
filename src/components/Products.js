@@ -1,24 +1,9 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import categories from '../database/categories.json';
-import productslist from '../database/products.json';
+import React from 'react';
 
-const Products = () => {
-  const { id } = useParams();
-
-  const category = categories.find(cate => {
-    return cate.id === id;
-  });
-
-  const [products] = useState(
-    productslist.filter(prod => {
-      return prod.categoryId === id;
-    })
-  );
+const Products = ({ products }) => {
   return (
     <div>
       <div>
-        <h3>{category.name}</h3>
         {products.map(
           ({
             currency,

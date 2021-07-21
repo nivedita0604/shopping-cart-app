@@ -3,26 +3,10 @@ import { useReducer } from 'react';
 const filterReducer = initialstate => {
   return (state, action) => {
     switch (action.type) {
-      case 'DELIVERY': {
-        return initialstate.filter(prod => {
-          return prod.delivery;
-        });
+      case 'SET': {
+        return { ...state, [action.filter]: action.value };
       }
-      case 'INSTOCK': {
-        return initialstate.filter(prod => {
-          return prod.inStock;
-        });
-      }
-      case 'PRICEHIGH': {
-        return initialstate.filter(prod => {
-          return prod.pricehigh;
-        });
-      }
-      case 'PRICELOW': {
-        return initialstate.filter(prod => {
-          return prod.pricecheap;
-        });
-      }
+
       case 'RESET': {
         return { initialstate };
       }
