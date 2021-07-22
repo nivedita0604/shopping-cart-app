@@ -1,17 +1,17 @@
 import { useReducer } from 'react';
 
-const filterReducer = initialstate => {
+const filterReducer = initialState => {
   return (state, action) => {
     switch (action.type) {
       case 'SET': {
-        return { ...state, [action.filter]: action.value };
+        return { ...state, [action.filterName]: action.value };
       }
 
-      case 'RESET': {
-        return { initialstate };
-      }
+      case 'RESET':
+        return initialState;
+
       default:
-        return { initialstate };
+        return state;
     }
   };
 };
