@@ -35,7 +35,7 @@ const Products = ({ products }) => {
                     <div style={{ color: 'red' }}>Out of Stock</div>
                   )}
                 </div>
-                <button type="button" disabled={!inStock}>
+                <button type="button" disabled={!inStock} onClick>
                   Add to cart
                 </button>
               </div>
