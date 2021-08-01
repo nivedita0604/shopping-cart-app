@@ -27,9 +27,11 @@ const Navbar = () => {
         );
       })}
       <div>
-        {totalCartItems}
-        <img src={CartImg} width={40} alt="cart" />
-        {totalCartValue}
+        <Link to="/checkout">
+          {totalCartItems}
+          <img src={CartImg} width={40} alt="cart" />
+          {totalCartValue}
+        </Link>
       </div>
     </div>
   );

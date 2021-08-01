@@ -1,6 +1,20 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatchCart } from '../utility/cart.context';
 
+// count not increasing
 const Products = ({ products }) => {
+  const dispathCart = useDispatchCart();
+  const onClickAddItem = useCallback(
+    (id, price, inStock) => {
+      if (!inStock) {
+        // eslint-disable-next-line no-useless-return
+        return;
+      }
+      dispathCart({ type: 'ADD_ITEM', id, price });
+    },
+    [dispathCart]
+  );
+
   return (
     <div>
       <div>
@@ -35,7 +49,13 @@ const Products = ({ products }) => {
                     <div style={{ color: 'red' }}>Out of Stock</div>
                   )}
                 </div>
-                <button type="button" disabled={!inStock} onClick>
+                <button
+                  type="button"
+                  disabled={!inStock}
+                  onClick={() => {
+                    return onClickAddItem(restOfProduct.id, price, inStock);
+                  }}
+                >
                   Add to cart
                 </button>
               </div>
