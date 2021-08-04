@@ -14,6 +14,9 @@ const Products = ({ products }) => {
     },
     [dispathCart]
   );
+  if (products.length === 0) {
+    return <div>No Products available ...</div>;
+  }
 
   return (
     <div>
