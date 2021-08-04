@@ -9,22 +9,20 @@ import { CartProvider } from './utility/cart.context';
 
 function App() {
   return (
-    <>
-      <CartProvider>
-        <NavBar />
-        <Switch>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/category/:id">
-            <Category />
-          </Route>
-          <Route path="/checkout" exact>
-            <Checkout />
-          </Route>
-        </Switch>
-      </CartProvider>
-    </>
+    <CartProvider>
+      <NavBar />
+      <Switch>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="/category/:id">
+          <Category />
+        </Route>
+        <Route path="/checkout" exact>
+          <Checkout />
+        </Route>
+      </Switch>
+    </CartProvider>
   );
 }
 

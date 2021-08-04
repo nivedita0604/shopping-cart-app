@@ -41,15 +41,15 @@ export function cartReducer(state, action) {
 
 const CartContext = createContext();
 const DispatchCartContext = createContext();
-const LOCALSTORAGEKEY = 'shopping_cart';
+const LOCAL_STORAGE_KEY = 'shopping_cart';
 export const CartProvider = ({ children }) => {
-  const [cart, dispatchCart] = useReducer(cartReducer, intialvalue => {
-    const persistedValue = localStorage.getItem(LOCALSTORAGEKEY);
-    return persistedValue ? JSON.parse(persistedValue) : intialvalue;
+  const [cart, dispatchCart] = useReducer(cartReducer, [], initialValue => {
+    const persistedValue = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return persistedValue ? JSON.parse(persistedValue) : initialValue;
   });
 
   useEffect(() => {
-    localStorage.setItem(LOCALSTORAGEKEY, JSON.stringify(cart));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cart));
   }, [cart]);
   return (
     <DispatchCartContext.Provider value={dispatchCart}>
