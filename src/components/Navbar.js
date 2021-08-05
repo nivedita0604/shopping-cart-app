@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { Nav, Container } from 'react-bootstrap';
 import { useCart } from '../utility/cart.context';
 import CartImg from '../image/shopping-cart.png';
 
@@ -19,20 +20,26 @@ const Navbar = () => {
   }, 0);
   return (
     <div>
-      {LINKS.map(({ link, text }) => {
-        return (
-          <div>
-            <Link to={link}>{text}</Link>
-          </div>
-        );
-      })}
-      <div>
-        <Link to="/checkout">
-          {totalCartItems}
-          <img src={CartImg} width={40} alt="cart" />
-          {totalCartValue}
-        </Link>
-      </div>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Nav className="me-auto">
+            {LINKS.map(({ link, text }) => {
+              return (
+                <Nav.Item eventKey={link}>
+                  <Nav.Link href={link}>{text}</Nav.Link>
+                </Nav.Item>
+              );
+            })}
+            <div>
+              <Nav.Link href="/checkout">
+                {totalCartItems}
+                <img src={CartImg} width={40} alt="cart" />
+                {totalCartValue}
+              </Nav.Link>
+            </div>
+          </Nav>
+        </Container>
+      </Navbar>
     </div>
   );
 };
